@@ -1,24 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <slider-right :imgs="imgs"/>
+    <slider-left :imgs="imgs"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SliderRight from "./components/SliderRight.vue";
+import SliderLeft from "./components/SliderLeft.vue";
 
 export default {
-  name: 'app',
+  name: "app",
+  data: function() {
+    return {
+      imgs: [
+        "./image-1.jpg",
+        "./image-2.jpg",
+        "./image-3.jpg",
+        "./image-4.jpg",
+        "./image-5.jpg"
+      ]
+    };
+  },
   components: {
-    HelloWorld
+    SliderRight,
+    SliderLeft
   }
-}
+};
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
