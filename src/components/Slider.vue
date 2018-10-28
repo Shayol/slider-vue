@@ -69,14 +69,7 @@ export default {
   computed: {},
   methods: {
     shuffle() {
-      clearTimeout(this.timerID);
       shuffleArray(this.indexes);
-      for (let i = 0, l = 5; i < l; i++) {
-        this.styles[i].backgroundImage = `url(${this.imgs[this.indexes[i]]})`;
-        this.styles[i].opacity = "1";
-        this.mainImg = 2;
-      }
-      this.init();
     },
     init() {
       let self = this;
