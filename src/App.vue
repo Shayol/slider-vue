@@ -45,6 +45,7 @@ export default {
 .upload {
   position: relative;
   display: block;
+  margin-bottom: 20%;
 
   &__label {
     background-color: antiquewhite;
@@ -63,6 +64,7 @@ export default {
     position: absolute;
   }
   @media (min-width: $tablet) {
+    margin-bottom: 2%;
     &__label {
       width: auto;
       display: inline-block;
