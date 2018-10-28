@@ -1,13 +1,12 @@
 <template>
-  <div id="app">
-    <slider-right :imgs="imgs"/>
-    <slider-left :imgs="imgs"/>
+  <div id="app" class="container">
+    <Slider :imgs="imgs" direction="left"/>
+    <Slider :imgs="imgs" direction="right"/>    
   </div>
 </template>
 
 <script>
-import SliderRight from "./components/SliderRight.vue";
-import SliderLeft from "./components/SliderLeft.vue";
+import Slider from "./components/Slider.vue";
 
 export default {
   name: "app",
@@ -23,19 +22,10 @@ export default {
     };
   },
   components: {
-    SliderRight,
-    SliderLeft
+    Slider
   }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
