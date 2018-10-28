@@ -4,6 +4,9 @@
    <div class="slider__content">
       <ImgComp v-for="(item,index) in styles" :key="index" :img-style="item" :img-class="classes[index]"/>
     </div>
+    <div class="slider__indicator indicator">
+      <div v-for="(item,index) in indexes" :key="index" class="indicator__dot" :class="{'indicator__dot--main-img': mainImg==index}"></div>
+    </div>
     <button @click="shuffle" class="slider__shuffle">
         Shuffle
     </button>
@@ -23,6 +26,7 @@ export default {
     return {
       indexes: [...this.imgs.keys()],
       timerID: "",
+      mainImg: 2,
       styles: [
         {
           backgroundImage: "url('./image-1.jpg')",
@@ -70,6 +74,7 @@ export default {
       for (let i = 0, l = 5; i < l; i++) {
         this.styles[i].backgroundImage = `url(${this.imgs[this.indexes[i]]})`;
         this.styles[i].opacity = "1";
+        this.mainImg = 2;
       }
       this.init();
     },
@@ -103,6 +108,9 @@ export default {
                 self.imgs[self.indexes[n]]
               })`;
               self.styles[i].opacity = "1";
+              if (i == 2) {
+                self.mainImg = n;
+              }
             }
 
             resolve();
@@ -131,19 +139,60 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .slider {
-  margin-bottom: 5%;
+  margin-bottom: 10%;
   &__content {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height: 200px;
+    height: 20vh;
+    max-height: 150px;
   }
   &__shuffle {
-    width: 30%;
+    width: 45%;
     margin-left: auto;
     margin-right: auto;
     display: block;
     margin-top: 20px;
+    height: 32px;
+    background-color: white;
+    outline: none;
+    background-color: antiquewhite;
+    border: 1px solid black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  &__indicator {
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    height: 12px;
+  }
+}
+.indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 12px;
+  padding-left: 12px;
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: antiquewhite;
+    border: 1px solid black;
+
+    &\--main-img {
+      background-color: black;
+    }
+  }
+}
+@media (min-width: $tablet) {
+  .slider {
+    margin-bottom: 5%;
+    &__content {
+      height: 20vw;
+      max-height: 250px;
+    }
   }
 }
 </style>
