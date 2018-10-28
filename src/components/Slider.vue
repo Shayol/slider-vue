@@ -139,7 +139,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .slider {
-  margin-bottom: 10%;
+  margin-top: 10%;
   &__content {
     display: flex;
     justify-content: space-between;
@@ -188,7 +188,7 @@ export default {
 }
 @media (min-width: $tablet) {
   .slider {
-    margin-bottom: 5%;
+    margin-top: 5%;
     &__content {
       height: 20vw;
       max-height: 250px;

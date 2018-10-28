@@ -1,14 +1,14 @@
 <template>
   <div id="app" class="container">
-    <Slider :imgs="imgs" direction="left"/>
-    <Slider :imgs="imgs" direction="right"/>    
-
     <form class="upload" method="post" enctype="multipart/form-data">
         <div>
             <label class="upload__label" for="img-upload">Choose img to upload</label>
-            <input ref="upload" type="file" id="img-upload" class="upload__field" name="img" accept=".jpg, .jpeg, .png">
+            <input ref="upload" @change="uploadImg" type="file" id="img-upload" class="upload__field" name="img" accept=".jpg, .jpeg, .png">
         </div>
     </form>
+    <Slider :imgs="imgs" direction="left"/>
+    <Slider :imgs="imgs" direction="right"/>    
+
   </div>
 
 </template>
@@ -33,9 +33,10 @@ export default {
     Slider
   },
   methods: {
-    // uploadImg() {
-    //   this.$refs.upload.click();
-    // }
+    uploadImg(e) {
+      let src = window.URL.createObjectURL(e.target.files[0]);
+      this.imgs.push(src);
+    }
   }
 };
 </script>
@@ -43,8 +44,7 @@ export default {
 <style lang="scss">
 .upload {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
 
   &__label {
     background-color: antiquewhite;
@@ -54,6 +54,8 @@ export default {
     width: 100%;
     line-height: 32px;
     text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
   }
   &__field {
     visibility: hidden;
@@ -62,7 +64,8 @@ export default {
   }
   @media (min-width: $tablet) {
     &__label {
-      width: 45%;
+      width: auto;
+      display: inline-block;
     }
   }
 }
