@@ -4,7 +4,7 @@
    <div class="slider__content">
       <ImgComp v-for="(item,index) in styles" :key="index" :img-style="item" :img-class="classes[index]"/>
     </div>
-    <button class="slider__shuffle">
+    <button @click="shuffle" class="slider__shuffle">
         Shuffle
     </button>
   </div>
@@ -12,6 +12,7 @@
 
 <script>
 import ImgComp from "./ImgComp.vue";
+import shuffleArray from "../shufflearray.js";
 export default {
   name: "Slider",
   props: ["imgs", "direction"],
@@ -21,6 +22,7 @@ export default {
   data: function() {
     return {
       indexes: [...this.imgs.keys()],
+      timerID: "",
       styles: [
         {
           backgroundImage: "url('./image-1.jpg')",
@@ -53,62 +55,76 @@ export default {
     };
   },
   mounted() {
-    let self = this;
-    let k;
-
-    if (self.direction == "right") {
-      k = 1;
-    } else {
-      k = self.indexes.length - 1;
-    }
-
-    setTimeout(animation, 2500);
-
-    async function animation() {
-      let n = k;
-
-      for (let i = 0, l = 5; i < l; i++) {
-        self.styles[i].opacity = "0";
-      }
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          for (let i = 0, l = 5; i < l; i++, n++) {
-            if (n >= self.indexes.length) {
-              n = 0;
-            }
-
-            self.styles[i].backgroundImage = `url(${
-              self.imgs[self.indexes[n]]
-            })`;
-            self.styles[i].opacity = "1";
-          }
-
-          resolve();
-        }, 700);
-      });
-
-      if (self.direction == "right") {
-        k++;
-        if (k >= self.indexes.length) {
-          k = 0;
-        }
-      } else {
-        k--;
-        if (k < 0) {
-          k = self.indexes.length - 1;
-        }
-      }
-
-      setTimeout(animation, 2500);
-    }
+    this.init();
   },
   watch: {
     imgs: function(val) {
       this.indexes.push(val.length - 1);
     }
   },
-  computed: {}
+  computed: {},
+  methods: {
+    shuffle() {
+      clearTimeout(this.timerID);
+      shuffleArray(this.indexes);
+      for (let i = 0, l = 5; i < l; i++) {
+        this.styles[i].backgroundImage = `url(${this.imgs[this.indexes[i]]})`;
+        this.styles[i].opacity = "1";
+      }
+      this.init();
+    },
+    init() {
+      let self = this;
+      let k;
+
+      if (self.direction == "right") {
+        k = 1;
+      } else {
+        k = self.indexes.length - 1;
+      }
+
+      self.timerID = setTimeout(animation, 2500);
+
+      async function animation() {
+        let n = k;
+
+        for (let i = 0, l = 5; i < l; i++) {
+          self.styles[i].opacity = "0";
+        }
+
+        await new Promise(resolve => {
+          setTimeout(() => {
+            for (let i = 0, l = 5; i < l; i++, n++) {
+              if (n >= self.indexes.length) {
+                n = 0;
+              }
+
+              self.styles[i].backgroundImage = `url(${
+                self.imgs[self.indexes[n]]
+              })`;
+              self.styles[i].opacity = "1";
+            }
+
+            resolve();
+          }, 700);
+        });
+
+        if (self.direction == "right") {
+          k++;
+          if (k >= self.indexes.length) {
+            k = 0;
+          }
+        } else {
+          k--;
+          if (k < 0) {
+            k = self.indexes.length - 1;
+          }
+        }
+
+        self.timerID = setTimeout(animation, 2500);
+      }
+    }
+  }
 };
 </script>
 
