@@ -1,13 +1,13 @@
 <template>
   <div id="app" class="container">
     <form class="upload" method="post" enctype="multipart/form-data">
-        <div>
-            <label class="upload__label" for="img-upload">Choose img to upload</label>
-            <input ref="upload" @change="uploadImg" type="file" id="img-upload" class="upload__field" name="img" accept=".jpg, .jpeg, .png">
-        </div>
+      <div>
+        <label class="upload__label" for="img-upload">Choose img to upload</label>
+        <input ref="upload" @change="uploadImg" type="file" id="img-upload" class="upload__field" name="img" accept=".jpg, .jpeg, .png">
+      </div>
     </form>
-    <Slider :imgs="imgs" direction="left"/>
-    <Slider :imgs="imgs" direction="right"/>    
+    <Slider :imgs="imgs" direction="left" />
+    <Slider :imgs="imgs" direction="right" />
 
   </div>
 
@@ -57,6 +57,10 @@ export default {
     text-align: center;
     padding-left: 4px;
     padding-right: 4px;
+    &:active {
+      transform: translateY(1px);
+      filter: saturate(200%);
+    }
   }
   &__field {
     visibility: hidden;

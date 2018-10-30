@@ -1,15 +1,12 @@
 <template>
-
   <div class="slider slider--right">
-   <div class="slider__content">
-      <ImgComp v-for="(item,index) in styles" :key="index" :img-style="item" :img-class="classes[index]"/>
+    <div class="slider__content">
+      <ImgComp v-for="(item,index) in styles" :key="index" :img-style="item" :img-class="classes[index]" />
     </div>
     <div class="slider__indicator indicator">
       <div v-for="(item,index) in indexes" :key="index" class="indicator__dot" :class="{'indicator__dot--main-img': mainImg==index}"></div>
     </div>
-    <button @click="shuffle" class="slider__shuffle">
-        Shuffle
-    </button>
+    <button @click="shuffle" class="slider__shuffle">Shuffle</button>
   </div>
 </template>
 
@@ -154,6 +151,10 @@ export default {
     background-color: antiquewhite;
     border: 1px solid black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    &:active {
+      transform: translateY(1px);
+      filter: saturate(200%);
+    }
   }
   &__indicator {
     width: 45%;
